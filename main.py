@@ -35,7 +35,7 @@ while True:
         continue
     elif user_input.lower() == "history":
         if not conversation_history:
-            print(f"{Fore.YELLOW}no conversationhistory yet{Style.RESET_ALL}")
+            print(f"{Fore.YELLOW}no conversation history yet{Style.RESET_ALL}")
         else:
             print(f"{Fore.CYAN}conversation history : {Style.RESET_ALL}")
             for idx, (text,polarity,sentiment_type) in enumerate(conversation_history, start = 1):
@@ -54,35 +54,18 @@ while True:
 polarity = TextBlob(user_input).sentiment.polarity
 
 if polarity > 0.25:
-
-sentiment_type = "Positive"
-
-color = Fore.GREEN
-
-emoji = "😊"
-
+    sentiment_type = "Positive"
+    color = Fore.GREEN
+    emoji = "😊"
 elif polarity < -0.25:
-
-sentiment_type = "Negative"
-
-color = Fore.RED
-
-emoji = "😞"
-
+    sentiment_type = "Negative"
+    color = Fore.RED
+    emoji = "😞"
 else:
+    entiment_type = "Neutral"
+    color = Fore.YELLOW
+    emoji = "😭"
+    conversation_history.append((user_input, polarity, sentiment_type))
 
-sentiment_type = "Neutral"
-
-color = Fore.YELLOW
-
-emoji = "😭"
-
-# Store in history
-
-conversation_history.append((user_input, polarity, sentiment_type))
-
-# Print result with color, emojis, and polarity
-
-print(f"{color}{emoji} {sentiment_type} sentiment detected! "
-
+print(f"{color}{emoji} {sentiment_type} sentiment detected!"
 f"Polarity: {polarity:.2f}")
